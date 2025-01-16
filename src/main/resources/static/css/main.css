@@ -135,9 +135,9 @@
      margin-right: auto;
      background-color: #fff;
      box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-     margin-top: 30px;
+     margin-top: 40px;
      height: calc(100% - 60px);
-     max-height: 600px;
+     max-height: 700px;
      position: relative;
  }
 
@@ -242,6 +242,7 @@
  }
 
 
+
  @media screen and (max-width: 730px) {
 
      .chat-container {
@@ -286,4 +287,44 @@
      .chat-header h2 {
          font-size: 1.1em;
      }
+ }
+
+ .username-display {
+     margin-bottom: 15px;
+     font-size: 1.2em;
+     font-weight: bold;
+     color: #333;
+ }
+
+ .chat-container {
+     margin: 20px;
+     padding: 10px;
+     background-color: #f9f9f9;
+ }
+
+ .hidden {
+     display: none;
+ }
+
+ .title {
+     font-size: 2em;
+     color: #444;
+ }
+
+ .form-control {
+     width: 100%;
+     padding: 10px;
+     margin: 5px 0;
+ }
+
+ .username-submit {
+     padding: 10px 15px;
+     background-color: #28a745;
+     color: white;
+     border: none;
+     cursor: pointer;
+ }
+
+ .username-submit:hover {
+     background-color: #218838;
  }

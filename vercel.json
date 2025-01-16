@@ -1,15 +1,6 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "target/*.jar",
-            "use": "@vercel/static-build"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/.*",
-            "dest": "target/chat-application-0.0.1-SNAPSHOT.jar"
-        }
-    ]
+    "env": {
+        "BACKEND_URL": "https://your-backend-deployment.com"
+    }
 }

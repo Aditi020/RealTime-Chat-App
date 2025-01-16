@@ -17,59 +17,56 @@ var colors = [
 ];
 
 function connect(event) {
-	 username = document.querySelector('#name').value.trim();
+    username = document.querySelector('#name').value.trim();
 
-	 if (username) {
-	 	usernamePage.classList.add('hidden');
-	 	chatPage.classList.remove('hidden');
+    if (username) {
+        usernamePage.classList.add('hidden');
+        chatPage.classList.remove('hidden');
 
-	 	var socket = new SockJS('/ws');
-	 	stompClient = Stomp.over(socket);
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
 
-	 	stompClient.connect({}, onConnected, onError);
-	 }
+        stompClient.connect({}, onConnected, onError);
+    }
 
-	  event.preventDefault();
+    event.preventDefault();
 }
 
 function onConnected() {
-	 stompClient.subscribe('/topic/chat', onMessageReceived);
+    stompClient.subscribe('/topic/chat', onMessageReceived);
 
-     stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}))
+    stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}));
 
-     connectingElement.classList.add('hidden');
+    connectingElement.classList.add('hidden');
 }
 
 function onError(error) {
-	connectingElement.textContent = 'Not able to connect. Please try again';
-	connectingElement.style.color = 'red';
+    connectingElement.textContent = 'Not able to connect. Please try again';
+    connectingElement.style.color = 'red';
 }
 
-
 function sendMessage(event) {
-	 var messageContent = messageInput.value.trim();
+    var messageContent = messageInput.value.trim();
 
-	 if (messageContent && stompClient) {
-	 	var chatMessage = {
+    if (messageContent && stompClient) {
+        var chatMessage = {
             sender: username,
             content: messageInput.value,
             type: 'CHAT'
         };
 
-       stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-       messageInput.value = '';
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
 
-	 }
-
-	 event.preventDefault();
+    event.preventDefault();
 }
 
 function onMessageReceived(payload) {
-	var message = JSON.parse(payload.body);
+    var message = JSON.parse(payload.body);
+    var messageElement = document.createElement('li');
 
-	var messageElement = document.createElement('li');
-
-	 if(message.type === 'JOIN') {
+    if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
@@ -89,6 +86,13 @@ function onMessageReceived(payload) {
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+
+        // Check if the message was sent by the current user
+        if (message.sender === username) {
+            messageElement.classList.add('sent-message');  // Add class for sender
+        } else {
+            messageElement.classList.add('received-message');  // Add class for receiver
+        }
     }
 
     var textElement = document.createElement('p');
@@ -98,8 +102,7 @@ function onMessageReceived(payload) {
     messageElement.appendChild(textElement);
 
     messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight
-
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 function getAvatarColor(messageSender) {
@@ -111,5 +114,5 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+usernameForm.addEventListener('submit', connect, true);
+messageForm.addEventListener('submit', sendMessage, true);
