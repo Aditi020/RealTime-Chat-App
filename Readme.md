@@ -1,6 +1,6 @@
+```markdown
 # Real-Time Chat Application
 ![Project Image](/Chat-App.png)
-
 
 A Real-Time Chat Application built with Spring Boot and WebSockets, allowing users to communicate instantly with others through a simple chat interface. The frontend uses HTML, CSS, and JavaScript to connect to a Spring Boot backend via SockJS and STOMP for seamless real-time messaging.
 
@@ -46,6 +46,67 @@ The backend will run on `http://localhost:8080`.
 2. Once the page loads, type your username and click "Start Chatting" to enter the chatroom.
 3. Send and receive messages in real-time.
 
+## Docker Setup
+
+### 1. Clone the Project
+
+Clone the repository to your local machine.
+
+```bash
+git clone https://github.com/your-username/chat-application.git
+cd chat-application
+```
+
+### 2. Build the Docker Image
+
+Build the Docker image using the following command. This will create a Docker image tagged `chat-application`.
+
+```bash
+docker build -t chat-application .
+```
+
+### 3. Run the Docker Container
+
+Run the Docker container using the following command. It maps the container's port `8080` to your local machine's port `8080`.
+
+```bash
+docker run -p 8080:8080 --name chat-app-container chat-application
+```
+
+### 4. Verify the Application is Running
+
+After running the container, you can verify that the application is running by opening your browser and navigating to:
+
+```
+http://localhost:8080
+```
+
+You should see the real-time chat application up and running.
+
+### 5. Check Running Containers
+
+To check if the container is running, use the following command:
+
+```bash
+docker ps
+```
+
+### 6. Stop the Docker Container
+
+If you want to stop the container, use the following command:
+
+```bash
+docker stop chat-app-container
+```
+
+### 7. Remove the Docker Container
+
+To remove the container after stopping it, use:
+
+```bash
+docker rm chat-app-container
+```
+
 ## Usage
 1. Enter a username to join the chatroom.
 2. Send messages that will be broadcasted to all connected clients.
@@ -60,3 +121,4 @@ The backend will run on `http://localhost:8080`.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
