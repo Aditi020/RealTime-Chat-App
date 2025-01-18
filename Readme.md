@@ -1,4 +1,4 @@
-```markdown
+
 # Real-Time Chat Application
 ![Project Image](/Chat-App.png)
 
@@ -121,4 +121,3 @@ docker rm chat-app-container
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
